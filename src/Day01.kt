@@ -1,10 +1,9 @@
 fun main() {
-    fun part1(input: List<String>): Int {
+    fun part1(input: List<Int>): Int {
         var getsDeeperCount = 0
-        input.forEachIndexed { index: Int, currentLine: String ->
+        input.forEachIndexed { index: Int, currentDepth: Int ->
             if (index == 0) return@forEachIndexed
-            val previousDepth = input[index - 1].toInt()
-            val currentDepth = currentLine.toInt()
+            val previousDepth = input[index - 1]
             if (currentDepth > previousDepth) {
                 getsDeeperCount++
             }
@@ -12,26 +11,26 @@ fun main() {
         return getsDeeperCount
     }
 
-    fun part2(input: List<String>): Int {
+    fun part2(input: List<Int>): Int {
         var getsDeeperCount = 0
-        var lastMeasurement = 0
-        input.forEachIndexed { index: Int, currentLine: String ->
+        var previousMeasurement = 0
+        input.forEachIndexed { index: Int, currentInput: Int ->
             if (index < 2) return@forEachIndexed
-            val currentMeasurement = input[index - 2].toInt() + input[index - 1].toInt() + currentLine.toInt()
-            if (lastMeasurement != 0 && currentMeasurement > lastMeasurement) {
+            val currentMeasurement = input[index - 2] + input[index - 1] + currentInput
+            if (previousMeasurement != 0 && currentMeasurement > previousMeasurement) {
                 getsDeeperCount++
             }
-            lastMeasurement = currentMeasurement
+            previousMeasurement = currentMeasurement
         }
         return getsDeeperCount
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
+    val testInput = readInput("Day01_test").map { it.toInt() }
     check(part1(testInput) == 7)
     check(part2(testInput) == 5)
 
-    val input = readInput("Day01")
+    val input = readInput("Day01").map { it.toInt() }
     println(part1(input))
     println(part2(input))
 }
