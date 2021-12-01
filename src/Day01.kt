@@ -13,12 +13,23 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        var getsDeeperCount = 0
+        var lastMeasurement = 0
+        input.forEachIndexed { index: Int, currentLine: String ->
+            if (index < 2) return@forEachIndexed
+            val currentMeasurement = input[index - 2].toInt() + input[index - 1].toInt() + currentLine.toInt()
+            if (lastMeasurement != 0 && currentMeasurement > lastMeasurement) {
+                getsDeeperCount++
+            }
+            lastMeasurement = currentMeasurement
+        }
+        return getsDeeperCount
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day01_test")
     check(part1(testInput) == 7)
+    check(part2(testInput) == 5)
 
     val input = readInput("Day01")
     println(part1(input))
