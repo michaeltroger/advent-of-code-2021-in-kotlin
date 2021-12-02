@@ -11,4 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run
-        run: ./run
+        run: ./run > build/output.txt
+      - name: Print
+        run: cat build/output.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: output
+          path: build/output.txt
