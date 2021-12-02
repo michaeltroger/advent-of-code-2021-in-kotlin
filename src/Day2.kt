@@ -30,11 +30,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day02_test").map { Command(it) }
+    val testInput = readInput("Day2_test").map { Command(it) }
     check(part1(testInput) == 150L)
     check(part2(testInput) == 900L)
 
-    val input = readInput("Day02").map { Command(it) }
+    val input = readInput("Day2").map { Command(it) }
     println(part1(input))
     println(part2(input))
 }
