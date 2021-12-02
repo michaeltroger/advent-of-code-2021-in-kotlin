@@ -1,8 +1,8 @@
 #!/bin/bash
 kotlinc src/ -include-runtime -d build/advent.jar
-for i in {1..2}
+for DAY in $(ls -1v src | grep -o "[[:digit:]]*")
 do
-   echo "Day $i:"
-   java -cp build/advent.jar Day"$i"Kt
+   echo "Day $DAY:"
+   java -cp build/advent.jar Day"$DAY"Kt
    echo
 done
