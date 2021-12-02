@@ -35,12 +35,8 @@ fun main() {
                     vertical += aim * it.increment
                     horizontal += it.increment
                 }
-                Direction.DOWN -> {
-                    aim +=  it.increment
-                }
-                Direction.UP -> {
-                    aim -=  it.increment
-                }
+                Direction.DOWN -> aim +=  it.increment
+                Direction.UP -> aim -=  it.increment
             }
         }
         return horizontal.toLong() * vertical
