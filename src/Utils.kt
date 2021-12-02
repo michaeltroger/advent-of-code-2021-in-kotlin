@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -5,7 +6,14 @@ import java.security.MessageDigest
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(name: String) = File("src/input", "$name.txt").readLines()
+fun readInput(day: Int, useTestInput: Boolean = false): List<String> {
+    var filename = "Day$day"
+    if (useTestInput) {
+        filename += "_test"
+    }
+    filename += ".txt"
+    return File("src/input", filename).readLines()
+}
 
 /**
  * Converts string to md5 hash.

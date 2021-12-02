@@ -1,3 +1,5 @@
+private const val DAY = 1
+
 fun main() {
     fun part1(input: List<Int>): Int {
         var getsDeeperCount = 0
@@ -26,11 +28,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day1_test").map { it.toInt() }
+    val testInput = readInput(day = DAY, useTestInput = true).map { it.toInt() }
     check(part1(testInput) == 7)
     check(part2(testInput) == 5)
 
-    val input = readInput("Day1").map { it.toInt() }
+    val input = readInput(day = DAY).map { it.toInt() }
     println(part1(input))
     println(part2(input))
 }
