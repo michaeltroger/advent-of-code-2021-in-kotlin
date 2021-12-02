@@ -7,7 +7,7 @@ Welcome to the Advent of Code[^aoc] Kotlin project created by [michaeltroger][gi
 In this repository, michaeltroger is about to provide solutions for the puzzles using [Kotlin][kotlin] language.
 
 **Special:**
-**`./run` compiles and runs all puzzles and prints its solutions. The solutions are also automatically printed on the CI via [GitHub Actions Workflow](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml) and saved as artificat.**
+**`./run` compiles and runs all puzzles and prints its solutions. The solutions are also automatically printed on the CI via [GitHub Actions Workflow](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml) and offered as artificat.**
 
 If you stuck with Kotlin-specific questions or anything related to this template, check out the following resources:
 
