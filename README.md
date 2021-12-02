@@ -5,6 +5,8 @@ Welcome to the Advent of Code[^aoc] Kotlin project created by [michaeltroger][gi
 
 In this repository, michaeltroger is about to provide solutions for the puzzles using [Kotlin][kotlin] language.
 
+**Special: The solutions are printed via [GitHub Actions Workflow](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml) to the command line and saved as artificat.**
+
 If you stuck with Kotlin-specific questions or anything related to this template, check out the following resources:
 
 - [Kotlin docs][docs]
