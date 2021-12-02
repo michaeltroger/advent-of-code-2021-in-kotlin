@@ -1,4 +1,5 @@
 # advent-of-code-2021-in-kotlin
+[![CI](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml)
 
 Welcome to the Advent of Code[^aoc] Kotlin project created by [michaeltroger][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
 
