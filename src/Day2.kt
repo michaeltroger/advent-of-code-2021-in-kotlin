@@ -1,7 +1,7 @@
 private const val DAY = 2
 
 fun main() {
-    fun part1(input: List<Command>): Long {
+    fun part1(input: List<Command>): Int {
         var horizontal = 0
         var vertical = 0
         input.forEach {
@@ -11,10 +11,10 @@ fun main() {
                 Direction.UP -> vertical -= it.increment
             }
         }
-        return horizontal.toLong() * vertical
+        return horizontal * vertical
     }
 
-    fun part2(input: List<Command>): Long {
+    fun part2(input: List<Command>): Int {
         var horizontal = 0
         var vertical = 0
         var aim = 0
@@ -28,13 +28,13 @@ fun main() {
                 Direction.UP -> aim -=  it.increment
             }
         }
-        return horizontal.toLong() * vertical
+        return horizontal * vertical
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput(day = DAY, useTestInput = true).map { Command(it) }
-    check(part1(testInput) == 150L)
-    check(part2(testInput) == 900L)
+    check(part1(testInput) == 150)
+    check(part2(testInput) == 900)
 
     val input = readInput(day = DAY).map { Command(it) }
     println(part1(input))
