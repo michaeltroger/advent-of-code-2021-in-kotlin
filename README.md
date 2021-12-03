@@ -1,4 +1,4 @@
-# Advent Of Code 2021 in Kotlin
+# Advent of Code 2021 in Kotlin
 ## Focus on Code Readability. With CI Solution Printing.
 [![CI](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml)
 
