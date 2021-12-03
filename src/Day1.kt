@@ -3,10 +3,8 @@ private const val DAY = 1
 fun main() {
     fun part1(input: List<Int>): Int {
         var getsDeeperCount = 0
-        input.forEachIndexed { index: Int, currentDepth: Int ->
-            if (index == 0) return@forEachIndexed
-            val previousDepth = input[index - 1]
-            if (currentDepth > previousDepth) {
+        for (i in 1 until input.size) {
+            if (input[i] > input[i - 1]) {
                 getsDeeperCount++
             }
         }
@@ -16,9 +14,8 @@ fun main() {
     fun part2(input: List<Int>): Int {
         var getsDeeperCount = 0
         var previousMeasurement = 0
-        input.forEachIndexed { index: Int, currentInput: Int ->
-            if (index < 2) return@forEachIndexed
-            val currentMeasurement = input[index - 2] + input[index - 1] + currentInput
+        for (i in 2 until input.size) {
+            val currentMeasurement = input[i - 2] + input[i - 1] + input[i]
             if (previousMeasurement != 0 && currentMeasurement > previousMeasurement) {
                 getsDeeperCount++
             }
