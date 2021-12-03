@@ -39,10 +39,10 @@ private fun findRemainingBitNumberRecursively(input: List<String>, searchMostCom
     } else {
         leastCommonBit
     }
-    val newList = input.filter {
+    val filteredList = input.filter {
         it[index] == bitToCompare
     }
-    return findRemainingBitNumberRecursively(newList, searchMostCommon, index + 1)
+    return findRemainingBitNumberRecursively(filteredList, searchMostCommon, index + 1)
 }
 
 private fun findMostAndLeastCommonBit(input: List<String>, index: Int): Pair<Char, Char> {
