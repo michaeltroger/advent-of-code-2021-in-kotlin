@@ -27,11 +27,11 @@ private fun findRemainingBitNumberRecursively(input: List<String>, searchMostCom
         return input.first()
     }
 
-    val (mostCommonBits, leastCommonBits) = findMostAndLeastCommonBits(input)
+    val (mostCommonBit, leastCommonBit) = findMostAndLeastCommonBitAtIndex(input, index)
     val bitToCompare = if (searchMostCommon) {
-        mostCommonBits[index]
+        mostCommonBit
     } else {
-        leastCommonBits[index]
+        leastCommonBit
     }
     val newList = mutableListOf<String>()
     input.forEach { bitNumber: String ->
@@ -70,4 +70,27 @@ private fun findMostAndLeastCommonBits(input: List<String>): Pair<CharArray, Cha
         leastCommonBits[i] = leastCommonBit
     }
     return mostCommonBits to leastCommonBits
+}
+
+private fun findMostAndLeastCommonBitAtIndex(input: List<String>, index: Int): Pair<Char, Char> {
+    var countedZeros = 0
+    var countedOnes = 0
+    for ((x, _) in input.withIndex()) {
+        when (input[x][index]) {
+            '0' -> countedZeros++
+            '1' -> countedOnes++
+        }
+    }
+
+    val mostCommonBit: Char
+    val leastCommonBit: Char
+    if (countedOnes >= countedZeros) {
+        mostCommonBit = '1'
+        leastCommonBit = '0'
+    } else {
+        mostCommonBit = '0'
+        leastCommonBit = '1'
+    }
+
+    return mostCommonBit to leastCommonBit
 }
