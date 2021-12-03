@@ -1,5 +1,5 @@
-# Advent Of Code 2021 in Kotlin 
-## with CI Solution Printing
+# Advent Of Code 2021
+## Focus on Code Readability. With CI Solution Printing.
 [![CI](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/michaeltroger/advent-of-code-2021-in-kotlin/actions/workflows/build.yml)
 
 Welcome to the Advent of Code[^aoc] Kotlin project created by [michaeltroger][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
