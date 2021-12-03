@@ -2,14 +2,14 @@ private const val DAY = 3
 
 fun main() {
     fun part1(input: List<String>): Int {
-        var mostCommonBits = ""
-        var leastCommonBits = ""
+        var gammaRateInBit = ""
+        var epsilonRateInBit = ""
         for (i in input[0].indices) {
             val (mostCommonBit, leastCommonBit) = findMostAndLeastCommonBit(input, i)
-            mostCommonBits += mostCommonBit
-            leastCommonBits += leastCommonBit
+            gammaRateInBit += mostCommonBit
+            epsilonRateInBit += leastCommonBit
         }
-        return mostCommonBits.toInt(2) * leastCommonBits.toInt(2)
+        return gammaRateInBit.toInt(2) * epsilonRateInBit.toInt(2)
     }
 
     fun part2(input: List<String>): Int {
