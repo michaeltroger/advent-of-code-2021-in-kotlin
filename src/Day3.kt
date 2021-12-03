@@ -3,40 +3,12 @@ private const val DAY = 3
 fun main() {
     fun part1(input: List<String>): Int {
         val (gammaRateInBit, epsilonRateInBit) = findMostAndLeastCommonBits(input)
-        return gammaRateInBit.toDecimal() * epsilonRateInBit.toDecimal()
-    }
-
-    fun findOxygenGeneratorRating(input: List<String>, index: Int = 0): String {
-        if (input.size == 1) {
-            return input.first()
-        }
-        val (mostCommonBits, leastCommonBits) = findMostAndLeastCommonBits(input)
-        val newList = mutableListOf<String>()
-        input.forEach { bitNumber: String ->
-            if (bitNumber[index] == mostCommonBits[index]) {
-                newList.add(bitNumber)
-            }
-        }
-        return findOxygenGeneratorRating(newList, index + 1)
-    }
-
-    fun findCo2ScrubberRating(input: List<String>, index: Int = 0): String {
-        if (input.size == 1) {
-            return input.first()
-        }
-        val (mostCommonBits, leastCommonBits) = findMostAndLeastCommonBits(input)
-        val newList = mutableListOf<String>()
-        input.forEach { bitNumber: String ->
-            if (bitNumber[index] == leastCommonBits[index]) {
-                newList.add(bitNumber)
-            }
-        }
-        return findCo2ScrubberRating(newList, index + 1)
+        return gammaRateInBit.concatToString().toInt(2) * epsilonRateInBit.concatToString().toInt(2)
     }
 
     fun part2(input: List<String>): Int {
-        val oxygenGeneratorRatingInBit = findOxygenGeneratorRating(input)
-        val co2ScrubberRatingInBit = findCo2ScrubberRating(input)
+        val oxygenGeneratorRatingInBit = findRemainingBitNumberRecursively(input, searchMostCommon = true)
+        val co2ScrubberRatingInBit = findRemainingBitNumberRecursively(input, searchMostCommon = false)
         return oxygenGeneratorRatingInBit.toInt(2) * co2ScrubberRatingInBit.toInt(2)
     }
 
@@ -48,6 +20,26 @@ fun main() {
     val input = readInput(day = DAY)
     println(part1(input))
     println(part2(input))
+}
+
+private fun findRemainingBitNumberRecursively(input: List<String>, searchMostCommon: Boolean, index: Int = 0): String {
+    if (input.size == 1) {
+        return input.first()
+    }
+
+    val (mostCommonBits, leastCommonBits) = findMostAndLeastCommonBits(input)
+    val bitToCompare = if (searchMostCommon) {
+        mostCommonBits[index]
+    } else {
+        leastCommonBits[index]
+    }
+    val newList = mutableListOf<String>()
+    input.forEach { bitNumber: String ->
+        if (bitNumber[index] == bitToCompare) {
+            newList.add(bitNumber)
+        }
+    }
+    return findRemainingBitNumberRecursively(newList, searchMostCommon, index + 1)
 }
 
 private fun findMostAndLeastCommonBits(input: List<String>): Pair<CharArray, CharArray> {
@@ -78,8 +70,4 @@ private fun findMostAndLeastCommonBits(input: List<String>): Pair<CharArray, Cha
         leastCommonBits[i] = leastCommonBit
     }
     return mostCommonBits to leastCommonBits
-}
-
-private fun CharArray.toDecimal(): Int {
-    return concatToString().toInt(2)
 }
