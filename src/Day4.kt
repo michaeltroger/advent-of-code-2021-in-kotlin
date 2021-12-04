@@ -5,20 +5,18 @@ fun main() {
         val randomNumbers: List<Byte> = input.randomNumbers
         val boards: List<Board> = input.bingoBoards
         randomNumbers.forEach { drawnNumber ->
-            // mark fields
             boards.forEach { board ->
-                board.numbers.forEach { row ->
+                board.forEach { row ->
                     row.filter { it.number == drawnNumber }.forEach { field -> field.marked = true }
                 }
             }
 
-            // check if row/column complete
             boards.forEach { board ->
-                board.numbers.forEachIndexed { x, rows ->
+                board.forEachIndexed { x, rows ->
                     val totalMarkedInX = rows.count { it.marked }
-                    val totalMarkedInY = board.numbers.mapIndexed { _, list -> list[x] }.count { it.marked }
+                    val totalMarkedInY = board.mapIndexed { _, list -> list[x] }.count { it.marked }
                     if (totalMarkedInX == 5 || totalMarkedInY == 5) {
-                        val sum = board.numbers.flatten().filter { !it.marked }.map { it.number }.sum()
+                        val sum = board.flatten().filter { !it.marked }.map { it.number }.sum()
                         return sum * drawnNumber
                     }
                 }
@@ -29,20 +27,50 @@ fun main() {
     }
 
     fun part2(input: Input): Int {
-        println(input.randomNumbers.size)
-        println(input.bingoBoards.size)
-        return 0
+        val randomNumbers: List<Byte> = input.randomNumbers
+        val boards: MutableList<Board> = input.bingoBoards.toMutableList()
+        val boardsToRemove: MutableList<Board> = mutableListOf()
+        var lastWinningBoard: Board? = null
+        var lastDrawnNumberWhenWinning: Byte = -1
+
+        randomNumbers.forEach { drawnNumber ->
+            boards.forEach { board ->
+                board.forEach { row ->
+                    row.filter { it.number == drawnNumber }.forEach { field -> field.marked = true }
+                }
+            }
+
+            boards.forEachIndexed  CheckBoards@ { index, board ->
+                board.forEachIndexed { x, rows ->
+                    val totalMarkedInX = rows.count { it.marked }
+                    val totalMarkedInY = board.mapIndexed { _, list -> list[x] }.count { it.marked }
+                    if (totalMarkedInX == 5 || totalMarkedInY == 5) {
+                        boardsToRemove.add(board)
+                        lastWinningBoard = board
+                        lastDrawnNumberWhenWinning = drawnNumber
+                        return@CheckBoards
+                    }
+                }
+            }
+            if (boardsToRemove.isNotEmpty()) {
+                boards.removeAll(boardsToRemove)
+                boardsToRemove.clear()
+            }
+        }
+        
+        val sum = lastWinningBoard!!.flatten().filter { !it.marked }.map { it.number }.sum()
+        return sum * lastDrawnNumberWhenWinning
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = toInput(readInput(day = DAY, useTestInput = true))
 
     check(part1(testInput) == 4512)
-    //check(part2(testInput) == 230)
+    check(part2(testInput) == 1924)
 
     val input = toInput(readInput(day = DAY))
     println(part1(input))
-    //println(part2(input))
+    println(part2(input))
 }
 
 private fun toInput(text: List<String>): Input {
@@ -62,12 +90,11 @@ private fun toInput(text: List<String>): Input {
             row.split(" ").map {
                 Field(it.toByte())
             }
-        }.chunked(5).map {
-            Board(it)
-        }.toList()
+        }.chunked(5)
+        .toList()
     return Input(randomNumbers, bingoBoards)
 }
 
 private class Input(val randomNumbers: List<Byte>, val bingoBoards: List<Board>)
 private class Field(val number: Byte, var marked: Boolean = false)
-private class Board(val numbers: List<List<Field>>)
+private typealias Board = List<List<Field>>
