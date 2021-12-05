@@ -63,17 +63,17 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = toInput(readInput(day = DAY, useTestInput = true))
+    val testInput = parseInput(readInput(day = DAY, useTestInput = true))
 
     check(part1(testInput) == 4512)
     check(part2(testInput) == 1924)
 
-    val input = toInput(readInput(day = DAY))
+    val input = parseInput(readInput(day = DAY))
     println(part1(input))
     println(part2(input))
 }
 
-private fun toInput(text: List<String>): Input {
+private fun parseInput(text: List<String>): Input {
     val randomNumbers: List<Byte> = text.first().split(",").map { it.toByte() }
     val bingoBoards = text.subList(2, text.size)
         .asSequence()
