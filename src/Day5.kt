@@ -9,8 +9,8 @@ fun main() {
             val (x1, y1) = line.from
             val (x2, y2) = line.to
             when {
-                x1 == x2 -> matrix.markDangerZoneXEqual(line)
-                y1 == y2 -> matrix.markDangerZoneYEqual(line)
+                x1 == x2 -> matrix.markDangerZoneHorizontally(line)
+                y1 == y2 -> matrix.markDangerZoneVertically(line)
             }
         }
 
@@ -25,9 +25,9 @@ fun main() {
             val (x1, y1) = line.from
             val (x2, y2) = line.to
             when {
-                x1 == x2 -> matrix.markDangerZoneXEqual(line)
-                y1 == y2 -> matrix.markDangerZoneYEqual(line)
-                else -> matrix.markDangerZoneDiagonal(line)
+                x1 == x2 -> matrix.markDangerZoneHorizontally(line)
+                y1 == y2 -> matrix.markDangerZoneVertically(line)
+                else -> matrix.markDangerZoneDiagonally(line)
             }
 
         }
@@ -46,7 +46,7 @@ fun main() {
     println(part2(input))
 }
 
-private fun Array<IntArray>.markDangerZoneXEqual(line: Line) {
+private fun Array<IntArray>.markDangerZoneHorizontally(line: Line) {
     var (x1, y1) = line.from
     var y2 = line.to.second
 
@@ -60,7 +60,7 @@ private fun Array<IntArray>.markDangerZoneXEqual(line: Line) {
     }
 }
 
-private fun Array<IntArray>.markDangerZoneYEqual(line: Line) {
+private fun Array<IntArray>.markDangerZoneVertically(line: Line) {
     var (x1, y1) = line.from
     var x2 = line.to.first
 
@@ -74,7 +74,7 @@ private fun Array<IntArray>.markDangerZoneYEqual(line: Line) {
     }
 }
 
-private fun Array<IntArray>.markDangerZoneDiagonal(line: Line) {
+private fun Array<IntArray>.markDangerZoneDiagonally(line: Line) {
     val (x1, y1) = line.from
     val (x2, y2) = line.to
 
