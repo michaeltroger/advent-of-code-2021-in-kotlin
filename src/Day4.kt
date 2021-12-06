@@ -32,14 +32,14 @@ fun main() {
             boards.markNumber(drawnNumber)
 
             boards.forEach { board ->
-                board.forEachIndexed CheckBoard@ { x, rows ->
+                board.forEachIndexed { x, rows ->
                     val totalMarkedInX = rows.count { it.marked }
                     val totalMarkedInY = board.mapIndexed { _, list -> list[x] }.count { it.marked }
                     if (totalMarkedInX == 5 || totalMarkedInY == 5) {
                         boardsToRemove.add(board)
                         lastWinningBoard = board
                         lastDrawnNumberWhenWinning = drawnNumber
-                        return@CheckBoard
+                        return@forEachIndexed
                     }
                 }
             }
