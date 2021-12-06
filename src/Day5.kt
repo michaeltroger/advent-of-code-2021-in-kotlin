@@ -2,7 +2,35 @@ private const val DAY = 5
 
 fun main() {
     fun part1(input: List<Line>): Int {
-        return -1
+        val max = input.getMax()
+
+        val array = Array(max + 1) { IntArray(max + 1) }
+        input.forEach { line ->
+            var (x1, y1) = line.from
+            var (x2, y2) = line.to
+            if (x1 == x2) {
+                if (y1 > y2) {
+                    val tempY = y1
+                    y1 = y2
+                    y2 = tempY
+                }
+                for (y in y1 until y2 + 1) {
+                    array[y][x1]++
+                }
+            }
+            if (y1 == y2) {
+                if (x1 > x2) {
+                    val tempX = x1
+                    x1 = x2
+                    x2 = tempX
+                }
+                for (x in x1 until x2 + 1) {
+                    array[y1][x]++
+                }
+            }
+        }
+
+        return array.toList().map { it.toList() }.flatten().count { it >= 2 }
     }
 
     fun part2(input: List<Line>): Int {
@@ -25,4 +53,23 @@ private class Line(val from: Pair<Int, Int>, val to: Pair<Int, Int>)
 private fun Line(text: String): Line {
     val line = text.replace(" -> ", ",").split(",").map { it.toInt() }
     return Line(from = line[0] to line[1], to = line[2] to line[3])
+}
+
+private fun List<Line>.getMax(): Int {
+    var max = 0
+    forEach {
+        if (it.to.first > max) {
+            max = it.to.first
+        }
+        if (it.from.first > max) {
+            max = it.from.first
+        }
+        if (it.to.second > max) {
+            max = it.to.second
+        }
+        if (it.from.second > max) {
+            max = it.from.second
+        }
+    }
+    return max
 }
