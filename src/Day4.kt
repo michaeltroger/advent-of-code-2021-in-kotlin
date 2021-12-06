@@ -5,19 +5,14 @@ fun main() {
         val randomNumbers: List<Byte> = input.randomNumbers
         val boards: List<Board> = input.bingoBoards
         randomNumbers.forEach { drawnNumber ->
-            boards.forEach { board ->
-                board.forEach { row ->
-                    row.filter { it.number == drawnNumber }.forEach { field -> field.marked = true }
-                }
-            }
+            boards.markNumber(drawnNumber)
 
             boards.forEach { board ->
                 board.forEachIndexed { x, rows ->
                     val totalMarkedInX = rows.count { it.marked }
                     val totalMarkedInY = board.mapIndexed { _, list -> list[x] }.count { it.marked }
                     if (totalMarkedInX == 5 || totalMarkedInY == 5) {
-                        val sum = board.flatten().filter { !it.marked }.map { it.number }.sum()
-                        return sum * drawnNumber
+                        return board.findSumOfUnmarkedFields() * drawnNumber
                     }
                 }
             }
@@ -34,21 +29,17 @@ fun main() {
         var lastDrawnNumberWhenWinning: Byte = -1
 
         randomNumbers.forEach { drawnNumber ->
-            boards.forEach { board ->
-                board.forEach { row ->
-                    row.filter { it.number == drawnNumber }.forEach { field -> field.marked = true }
-                }
-            }
+            boards.markNumber(drawnNumber)
 
-            boards.forEachIndexed  CheckBoards@ { index, board ->
-                board.forEachIndexed { x, rows ->
+            boards.forEach { board ->
+                board.forEachIndexed CheckBoard@ { x, rows ->
                     val totalMarkedInX = rows.count { it.marked }
                     val totalMarkedInY = board.mapIndexed { _, list -> list[x] }.count { it.marked }
                     if (totalMarkedInX == 5 || totalMarkedInY == 5) {
                         boardsToRemove.add(board)
                         lastWinningBoard = board
                         lastDrawnNumberWhenWinning = drawnNumber
-                        return@CheckBoards
+                        return@CheckBoard
                     }
                 }
             }
@@ -57,9 +48,8 @@ fun main() {
                 boardsToRemove.clear()
             }
         }
-        
-        val sum = lastWinningBoard!!.flatten().filter { !it.marked }.map { it.number }.sum()
-        return sum * lastDrawnNumberWhenWinning
+
+        return lastWinningBoard!!.findSumOfUnmarkedFields() * lastDrawnNumberWhenWinning
     }
 
     // test if implementation meets criteria from the description, like:
@@ -72,6 +62,16 @@ fun main() {
     println(part1(input))
     println(part2(input))
 }
+
+private fun List<Board>.markNumber(drawnNumber: Byte) {
+    forEach { board ->
+        board.forEach { row ->
+            row.filter { it.number == drawnNumber }.forEach { field -> field.marked = true }
+        }
+    }
+}
+
+private fun Board.findSumOfUnmarkedFields(): Int = flatten().filter { !it.marked }.map { it.number }.sum()
 
 private fun parseInput(text: List<String>): Input {
     val randomNumbers: List<Byte> = text.first().split(",").map { it.toByte() }
