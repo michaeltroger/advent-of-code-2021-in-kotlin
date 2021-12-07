@@ -34,4 +34,3 @@ fun main() {
 }
 
 private fun parseInput(input: List<String>) = input.first().split(",").map { it.toByte() }
-
