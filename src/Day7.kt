@@ -6,7 +6,7 @@ fun main() {
     fun part1(input: List<Int>): Int {
         val max = input.maxOf { it }
         var totalFuelCosts = Int.MAX_VALUE
-        for (position in 0..max + 1) {
+        for (position in 0..max) {
             input.sumOf { (position - it).absoluteValue }
                 .takeIf { it < totalFuelCosts }
                 ?.let { totalFuelCosts = it }
@@ -16,7 +16,7 @@ fun main() {
     fun part2(input: List<Int>): Int {
         val max = input.maxOf { it }
         var totalFuelCosts = Int.MAX_VALUE
-        for (position in 0..max + 1) {
+        for (position in 0..max) {
             input.sumOf {
                 val stepsToMove = (position - it).absoluteValue
                 stepsToMove * (stepsToMove + 1) / 2 // Little Gauss formula
