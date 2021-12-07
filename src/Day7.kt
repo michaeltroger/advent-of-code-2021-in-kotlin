@@ -13,7 +13,17 @@ fun main() {
         }
         return totalFuelCosts
     }
-    fun part2(input: List<Int>) = 0
+    fun part2(input: List<Int>): Int {
+        val max = input.maxOf { it }
+        var totalFuelCosts = Int.MAX_VALUE
+        for (position in 0..max + 1) {
+            input.sumOf {
+                val stepsToMove = (position - it).absoluteValue
+                stepsToMove * (stepsToMove + 1) / 2 // Little Gauss formula
+            }.takeIf { it < totalFuelCosts }?.let { totalFuelCosts = it }
+        }
+        return totalFuelCosts
+    }
 
     // test if implementation meets criteria from the description, like:
     val testInput = parseInput(readInput(day = DAY, useTestInput = true))
