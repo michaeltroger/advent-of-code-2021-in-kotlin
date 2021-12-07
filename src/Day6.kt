@@ -20,8 +20,8 @@ fun main() {
         return fishCountPerDay.sum()
     }
 
-    fun part1(input: List<Byte>) = getFishPopulationCount(input, 80)
-    fun part2(input: List<Byte>) = getFishPopulationCount(input, 256)
+    fun part1(input: List<Byte>) = getFishPopulationCount(initialState = input, daysToSimulate = 80)
+    fun part2(input: List<Byte>) = getFishPopulationCount(initialState = input, daysToSimulate = 256)
 
     // test if implementation meets criteria from the description, like:
     val testInput = parseInput(readInput(day = DAY, useTestInput = true))
