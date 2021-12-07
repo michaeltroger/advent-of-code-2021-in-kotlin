@@ -7,10 +7,9 @@ fun main() {
         val max = input.maxOf { it }
         var totalFuelCosts = Int.MAX_VALUE
         for (position in 0..max + 1) {
-            val costs = input.map { crabPosition -> (position - crabPosition).absoluteValue }.sum()
-            if (costs < totalFuelCosts) {
-                totalFuelCosts = costs
-            }
+            input.sumOf { (position - it).absoluteValue }
+                .takeIf { it < totalFuelCosts }
+                ?.let { totalFuelCosts = it }
         }
         return totalFuelCosts
     }
