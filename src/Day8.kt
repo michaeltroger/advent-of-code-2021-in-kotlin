@@ -7,11 +7,12 @@ fun main() {
         }.flatten().count { it.length == 2 || it.length == 3 || it.length == 4 || it.length == 7 }
 
     fun part2(input: List<String>): Int {
+        var sum = 0
+        
         val parsedInput = input.map {
             it.split(" | ").map { it.split(" ") }
         }
 
-        var sum = 0
         parsedInput.forEach {
             val map = it.first().groupBy { it.length }.toSortedMap()
 
@@ -72,7 +73,6 @@ fun main() {
                         segments[9] -> 9
                         else -> throw Error()
                     }.toString()
-
             }
             sum += output.joinToString("").toInt()
         }
