@@ -8,7 +8,7 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         var sum = 0
-        
+
         val parsedInput = input.map {
             it.split(" | ").map { it.split(" ") }
         }
@@ -91,4 +91,3 @@ fun main() {
 }
 
 private fun String.sortAlphabetically() = toCharArray().sorted().joinToString("")
-
