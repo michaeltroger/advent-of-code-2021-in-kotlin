@@ -3,34 +3,13 @@ private const val DAY = 11
 fun main() {
     fun part1(input: List<List<Int>>): Int {
         val octopuses = input.map { it.toIntArray() }.toTypedArray()
-        var flashCount = 0
+        var totalFlashCount = 0
         repeat(100) {
-            // increase energy level of all by one
-            for (x in octopuses.indices) {
-                for (y in octopuses[0].indices) {
-                    octopuses[x][y]++
-                }
-            }
-            // flash all octopuses with energy > 9 plus adjacent ones
-            val flashedOctopuses: Array<BooleanArray> = Array(10)  { BooleanArray(10) }
-            for (x in octopuses.indices) {
-                for (y in octopuses[0].indices) {
-                    if (octopuses[x][y] > 9 && !flashedOctopuses[x][y]) {
-                        makeOctopusFlash(octopuses, x, y, flashedOctopuses)
-                    }
-                }
-            }
-            // reset energy level
-            for (x in octopuses.indices) {
-                for (y in octopuses[0].indices) {
-                    if (octopuses[x][y] > 9) {
-                        octopuses[x][y] = 0
-                        flashCount++
-                    }
-                }
-            }
+            increaseEnergyLevelOfAllByOne(octopuses)
+            flashWhenEnoughEnergy(octopuses)
+            totalFlashCount += resetEnergyLevelAfterFlashing(octopuses)
         }
-        return flashCount
+        return totalFlashCount
     }
 
     fun part2(input: List<List<Int>>): Int {
@@ -39,32 +18,10 @@ fun main() {
         var step = 0
         while(true) {
             step++
-            // increase energy level of all by one
-            for (x in octopuses.indices) {
-                for (y in octopuses[0].indices) {
-                    octopuses[x][y]++
-                }
-            }
-            // flash all octopuses with energy > 9 plus adjacent ones
-            val flashedOctopuses: Array<BooleanArray> = Array(10)  { BooleanArray(10) }
-            for (x in octopuses.indices) {
-                for (y in octopuses[0].indices) {
-                    if (octopuses[x][y] > 9 && !flashedOctopuses[x][y]) {
-                        makeOctopusFlash(octopuses, x, y, flashedOctopuses)
-                    }
-                }
-            }
-            // reset energy level
-            var flashCountInStep = 0
-            for (x in octopuses.indices) {
-                for (y in octopuses[0].indices) {
-                    if (octopuses[x][y] > 9) {
-                        octopuses[x][y] = 0
-                        flashCountInStep++
-                    }
-                }
-            }
-            if (flashCountInStep == 100) { // if all flashing synchronized
+            increaseEnergyLevelOfAllByOne(octopuses)
+            flashWhenEnoughEnergy(octopuses)
+            val flashCountInStep = resetEnergyLevelAfterFlashing(octopuses)
+            if (flashCountInStep == 100) { // if all are flashing synchronized
                 return step
             }
             totalFlashCount += flashCountInStep
@@ -79,6 +36,38 @@ fun main() {
     val input = readInput(day = DAY).toIntArray()
     println(part1(input))
     println(part2(input))
+}
+
+private fun resetEnergyLevelAfterFlashing(octopuses: Array<IntArray>): Int {
+    var flashCountInStep = 0
+    for (x in octopuses.indices) {
+        for (y in octopuses[0].indices) {
+            if (octopuses[x][y] > 9) {
+                octopuses[x][y] = 0
+                flashCountInStep++
+            }
+        }
+    }
+    return flashCountInStep
+}
+
+private fun flashWhenEnoughEnergy(octopuses: Array<IntArray>) {
+    val flashedOctopuses: Array<BooleanArray> = Array(10)  { BooleanArray(10) }
+    for (x in octopuses.indices) {
+        for (y in octopuses[0].indices) {
+            if (octopuses[x][y] > 9 && !flashedOctopuses[x][y]) {
+                makeOctopusFlash(octopuses, x, y, flashedOctopuses)
+            }
+        }
+    }
+}
+
+private fun increaseEnergyLevelOfAllByOne(octopuses: Array<IntArray>) {
+    for (x in octopuses.indices) {
+        for (y in octopuses[0].indices) {
+            octopuses[x][y]++
+        }
+    }
 }
 
 private fun makeOctopusFlash(octopuses: Array<IntArray>, x: Int, y: Int, flashedOctopuses: Array<BooleanArray>) {
