@@ -21,7 +21,7 @@ fun main() {
             increaseEnergyLevelOfAllByOne(octopuses)
             flashWhenEnoughEnergy(octopuses)
             val flashCountInStep = resetEnergyLevelAfterFlashing(octopuses)
-            if (flashCountInStep == 100) { // if all are flashing synchronized
+            if (flashCountInStep == 100) { // if all are flashing simultaneously
                 return step
             }
             totalFlashCount += flashCountInStep
