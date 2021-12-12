@@ -73,70 +73,37 @@ private fun increaseEnergyLevelOfAllByOne(octopuses: Array<IntArray>) {
 private fun makeOctopusFlash(octopuses: Array<IntArray>, x: Int, y: Int, flashedOctopuses: Array<BooleanArray>) {
     flashedOctopuses[x][y] = true
 
-    var xIndex = x-1
-    var yIndex = y
     if (x > 0) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x-1, y, flashedOctopuses)
     }
-    xIndex = x+1
-    yIndex = y
     if (x < octopuses.size - 1) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x+1, y, flashedOctopuses)
     }
-    xIndex = x
-    yIndex = y-1
     if (y > 0) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x, y-1, flashedOctopuses)
     }
-    xIndex = x
-    yIndex = y+1
     if (y < octopuses[0].size - 1) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x, y+1, flashedOctopuses)
     }
 
-    xIndex = x-1
-    yIndex = y-1
     if (x > 0 && y > 0) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x-1, y-1, flashedOctopuses)
     }
-    xIndex = x+1
-    yIndex = y+1
     if (y < octopuses[0].size - 1 && x < octopuses.size - 1) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x+1, y+1, flashedOctopuses)
     }
-    xIndex = x+1
-    yIndex = y-1
     if (x < octopuses.size - 1 && y > 0) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x+1, y-1, flashedOctopuses)
     }
-    xIndex = x-1
-    yIndex = y+1
     if (y < octopuses.size - 1 && x > 0) {
-        octopuses[xIndex][yIndex]++
-        if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
-            makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
-        }
+        increaseEnergyAndFlashIfThresholdReached(octopuses, x-1, y+1, flashedOctopuses)
+    }
+}
+
+private fun increaseEnergyAndFlashIfThresholdReached(octopuses: Array<IntArray>, xIndex: Int, yIndex: Int, flashedOctopuses: Array<BooleanArray>) {
+    octopuses[xIndex][yIndex]++
+    if (octopuses[xIndex][yIndex] > 9 && !flashedOctopuses[xIndex][yIndex]) {
+        makeOctopusFlash(octopuses, xIndex, yIndex, flashedOctopuses)
     }
 }
 
