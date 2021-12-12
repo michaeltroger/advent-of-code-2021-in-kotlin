@@ -1,8 +1,8 @@
 private const val DAY = 11
 
 fun main() {
-    fun part1(input: Array<IntArray>): Int {
-        val octopuses = input.map { it.clone() }.toTypedArray()
+    fun part1(input: List<List<Int>>): Int {
+        val octopuses = input.map { it.toIntArray() }.toTypedArray()
         var flashCount = 0
         repeat(100) {
             // increase energy level of all by one
@@ -33,8 +33,8 @@ fun main() {
         return flashCount
     }
 
-    fun part2(input: Array<IntArray>): Int {
-        val octopuses = input.map { it.clone() }.toTypedArray()
+    fun part2(input: List<List<Int>>): Int {
+        val octopuses = input.map { it.toIntArray() }.toTypedArray()
         var totalFlashCount = 0
         var step = 0
         while(true) {
@@ -64,12 +64,11 @@ fun main() {
                     }
                 }
             }
-            if (flashCountInStep == 100) {
+            if (flashCountInStep == 100) { // if all flashing synchronized
                 return step
             }
             totalFlashCount += flashCountInStep
         }
-        return -1
     }
 
     // test if implementation meets criteria from the description, like:
@@ -152,6 +151,6 @@ private fun makeOctopusFlash(octopuses: Array<IntArray>, x: Int, y: Int, flashed
     }
 }
 
-private fun List<String>.toIntArray(): Array<IntArray> {
-    return map { it.toCharArray().map { it.toString().toInt() }.toIntArray() }.toTypedArray()
+private fun List<String>.toIntArray(): List<List<Int>> {
+    return map { it.map { it.toString().toInt() } }
 }
