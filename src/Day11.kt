@@ -29,11 +29,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput(day = DAY, useTestInput = true).toIntArray()
+    val testInput = readInput(day = DAY, useTestInput = true).parseInput()
     check(part1(testInput) == 1656)
     check(part2(testInput) == 195)
 
-    val input = readInput(day = DAY).toIntArray()
+    val input = readInput(day = DAY).parseInput()
     println(part1(input))
     println(part2(input))
 }
@@ -140,6 +140,6 @@ private fun makeOctopusFlash(octopuses: Array<IntArray>, x: Int, y: Int, flashed
     }
 }
 
-private fun List<String>.toIntArray(): List<List<Int>> {
+private fun List<String>.parseInput(): List<List<Int>> {
     return map { it.map { it.toString().toInt() } }
 }
