@@ -1,6 +1,8 @@
 private const val DAY = 11
+
 fun main() {
-    fun part1(octopuses: Array<IntArray>): Int {
+    fun part1(input: Array<IntArray>): Int {
+        val octopuses = input.map { it.clone() }.toTypedArray()
         var flashCount = 0
         repeat(100) {
             // increase energy level of all by one
@@ -14,7 +16,6 @@ fun main() {
             for (x in octopuses.indices) {
                 for (y in octopuses[0].indices) {
                     if (octopuses[x][y] > 9 && !flashedOctopuses[x][y]) {
-                        //octopuses[x][y]++
                         makeOctopusFlash(octopuses, x, y, flashedOctopuses)
                     }
                 }
@@ -32,14 +33,49 @@ fun main() {
         return flashCount
     }
 
-    fun part2(octopuses: Array<IntArray>): Int {
+    fun part2(input: Array<IntArray>): Int {
+        val octopuses = input.map { it.clone() }.toTypedArray()
+        var totalFlashCount = 0
+        var step = 0
+        while(true) {
+            step++
+            // increase energy level of all by one
+            for (x in octopuses.indices) {
+                for (y in octopuses[0].indices) {
+                    octopuses[x][y]++
+                }
+            }
+            // flash all octopuses with energy > 9 plus adjacent ones
+            val flashedOctopuses: Array<BooleanArray> = Array(10)  { BooleanArray(10) }
+            for (x in octopuses.indices) {
+                for (y in octopuses[0].indices) {
+                    if (octopuses[x][y] > 9 && !flashedOctopuses[x][y]) {
+                        makeOctopusFlash(octopuses, x, y, flashedOctopuses)
+                    }
+                }
+            }
+            // reset energy level
+            var flashCountInStep = 0
+            for (x in octopuses.indices) {
+                for (y in octopuses[0].indices) {
+                    if (octopuses[x][y] > 9) {
+                        octopuses[x][y] = 0
+                        flashCountInStep++
+                    }
+                }
+            }
+            if (flashCountInStep == 100) {
+                return step
+            }
+            totalFlashCount += flashCountInStep
+        }
         return -1
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput(day = DAY, useTestInput = true).toIntArray()
     check(part1(testInput) == 1656)
-    //check(part2(testInput) == 288957)
+    check(part2(testInput) == 195)
 
     val input = readInput(day = DAY).toIntArray()
     println(part1(input))
